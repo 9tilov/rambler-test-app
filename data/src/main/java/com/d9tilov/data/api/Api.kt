@@ -6,6 +6,6 @@ import retrofit2.http.GET
 interface Api {
 
     @GET("movie/popular")
-    fun getPopularMovies(): Observable<MovieListResult>
+    fun popularMovies(): Observable<MovieListResult>
 
 }

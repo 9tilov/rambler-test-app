@@ -27,4 +27,8 @@ class MoviesRepositoryImpl(api: Api,
             }
         }
     }
+
+    override fun getMovie(movieId: Long): Observable<Optional<MovieEntity>> {
+        return remoteDataStore.getMovieById(movieId)
+    }
 }

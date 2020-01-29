@@ -10,7 +10,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class AppModule constructor(context: Context){
+class AppModule constructor(context: Context) {
 
     private val appContext = context.applicationContext
 
@@ -20,13 +20,14 @@ class AppModule constructor(context: Context){
         return appContext
     }
 
-
+    @Singleton
     @Provides
     @Named(SCHEDULER_MAIN_THREAD)
-    fun provideAndroidMainThreadScheduler() : Scheduler = AndroidSchedulers.mainThread()
+    fun provideAndroidMainThreadScheduler(): Scheduler = AndroidSchedulers.mainThread()
 
+    @Singleton
     @Provides
     @Named(SCHEDULER_IO)
-    fun provideIoScheduler() : Scheduler = Schedulers.io()
+    fun provideIoScheduler(): Scheduler = Schedulers.io()
 
 }

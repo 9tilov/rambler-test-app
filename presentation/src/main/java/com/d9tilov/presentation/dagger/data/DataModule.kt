@@ -33,8 +33,8 @@ class DataModule {
         ).build()
     }
 
-    @Provides
     @Singleton
+    @Provides
     fun provideMovieRepository(
         api: Api,
         @Named(DI.favoritesCache) cache: MoviesCache,

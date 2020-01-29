@@ -2,7 +2,7 @@ package com.d9tilov.presentation.entities
 
 data class Movie (
 
-    var id: Int = 0,
+    var id: Long = 0,
     var voteCount: Int = 0,
     var video: Boolean = false,
     var voteAverage: Double = 0.0,
