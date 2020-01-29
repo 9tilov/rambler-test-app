@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,14 +24,14 @@ class MovieListFragment : BaseFragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var popularMoviesAdapter: PopularMoviesAdapter
+    private lateinit var moviesAdapter: moviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as App).createMoviesComponent().inject(this)
         initViewModel()
         if (savedInstanceState == null) {
-            viewModel.getPopularMovies()
+            viewModel.getMovies()
         }
     }
 
@@ -40,10 +41,10 @@ class MovieListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.viewState.observe(this, Observer {
+        viewModel.viewState.observe(this as LifecycleOwner, Observer {
             if (it != null) handleViewState(it)
         })
-        viewModel.errorState.observe(this, Observer { throwable ->
+        viewModel.errorState.observe(this as LifecycleOwner, Observer { throwable ->
             throwable?.let {
                 Toast.makeText(activity, throwable.message, Toast.LENGTH_LONG).show()
             }
@@ -60,17 +61,17 @@ class MovieListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = popular_movies_progress
-        popularMoviesAdapter = PopularMoviesAdapter { movie, view ->
+        moviesAdapter = moviesAdapter { movie, view ->
             navigateToMovieDetailsScreen(movie)
         }
         recyclerView = popular_movies_recyclerview
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
-        recyclerView.adapter = popularMoviesAdapter
+        recyclerView.adapter = moviesAdapter
     }
 
     private fun handleViewState(state: PopularMoviesViewState) {
         progressBar.visibility = if (state.showLoading) View.VISIBLE else View.GONE
-        state.movies?.let { popularMoviesAdapter.addMovies(it) }
+        state.movies?.let { moviesAdapter.addMovies(it) }
     }
 
     override fun onDestroy() {

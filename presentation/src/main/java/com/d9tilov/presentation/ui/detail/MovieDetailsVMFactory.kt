@@ -16,9 +16,9 @@ class MovieDetailsVMFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MovieDetailsViewModel(
-                getMovieDetails,
-                mapper,
-                movieId) as T
+            getMovieDetails,
+            mapper,
+            movieId
+        ) as T
     }
-
 }

@@ -50,7 +50,7 @@ class MovieDetailsViewModel(
             isLoading = false,
             title = movie.originalTitle,
             releaseDate = movie.releaseDate,
-            votesAverage = movie.voteAverage,
+            overview = movie.overview,
             backdropUrl = movie.backdropPath
         )
 

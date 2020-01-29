@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.d9tilov.data.api.Api
 import com.d9tilov.data.db.MoviesDatabase
 import com.d9tilov.data.db.RoomFavoritesMovieCache
+import com.d9tilov.data.mappers.DetailsDataMovieEntityMapper
 import com.d9tilov.data.mappers.MovieDataEntityMapper
 import com.d9tilov.data.mappers.MovieEntityDataMapper
 import com.d9tilov.data.repository.CachedMoviesDataStore
@@ -38,10 +39,11 @@ class DataModule {
     fun provideMovieRepository(
         api: Api,
         @Named(DI.favoritesCache) cache: MoviesCache,
-        movieDataMapper: MovieDataEntityMapper
+        movieDataMapper: MovieDataEntityMapper,
+        detailedDataMapper: DetailsDataMovieEntityMapper
     ): MoviesRepository {
 
-        return MoviesRepositoryImpl(api, cache, movieDataMapper)
+        return MoviesRepositoryImpl(api, cache, movieDataMapper,detailedDataMapper)
     }
 
     @Singleton
@@ -67,9 +69,10 @@ class DataModule {
     @Named(DI.remoteDataStore)
     fun provideRemoteMovieDataStore(
         api: Api,
-        movieDataMapper: MovieDataEntityMapper
+        movieDataMapper: MovieDataEntityMapper,
+        detailedDataMapper: DetailsDataMovieEntityMapper
     ): MoviesDataStore {
-        return RemoteMoviesDataStore(api, movieDataMapper)
+        return RemoteMoviesDataStore(api, movieDataMapper, detailedDataMapper)
     }
 
     @Singleton

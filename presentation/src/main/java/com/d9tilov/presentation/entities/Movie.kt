@@ -15,5 +15,4 @@ data class Movie (
     var adult: Boolean = false,
     var releaseDate: String,
     var isFavorite: Boolean = false,
-    var overview: String? = null) {
-}
+    var overview: String? = null)
