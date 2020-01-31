@@ -13,6 +13,7 @@ import com.d9tilov.presentation.dagger.movie.MovieSubComponent
 import com.d9tilov.presentation.dagger.movie.MoviesModule
 import com.d9tilov.presentation.dagger.network.NetworkModule
 import com.facebook.stetho.Stetho
+import timber.log.Timber
 
 class App : Application() {
 
@@ -23,7 +24,11 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initDependencies()
-        Stetho.initializeWithDefaults(this); }
+        Stetho.initializeWithDefaults(this);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
 
     private fun initDependencies() {
         mainComponent = DaggerMainComponent.builder()

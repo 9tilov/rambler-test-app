@@ -1,6 +1,7 @@
 package com.d9tilov.presentation.dagger.data
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.d9tilov.data.api.Api
 import com.d9tilov.data.db.MoviesDatabase
@@ -8,10 +9,7 @@ import com.d9tilov.data.db.RoomFavoritesMovieCache
 import com.d9tilov.data.mappers.DetailsDataMovieEntityMapper
 import com.d9tilov.data.mappers.MovieDataEntityMapper
 import com.d9tilov.data.mappers.MovieEntityDataMapper
-import com.d9tilov.data.repository.CachedMoviesDataStore
-import com.d9tilov.data.repository.MemoryMoviesCache
-import com.d9tilov.data.repository.MoviesRepositoryImpl
-import com.d9tilov.data.repository.RemoteMoviesDataStore
+import com.d9tilov.data.repository.*
 import com.d9tilov.domain.MoviesCache
 import com.d9tilov.domain.MoviesDataStore
 import com.d9tilov.domain.MoviesRepository
@@ -39,11 +37,11 @@ class DataModule {
     fun provideMovieRepository(
         api: Api,
         @Named(DI.favoritesCache) cache: MoviesCache,
+        sharedPreferences: MovieSharedPreferences,
         movieDataMapper: MovieDataEntityMapper,
         detailedDataMapper: DetailsDataMovieEntityMapper
     ): MoviesRepository {
-
-        return MoviesRepositoryImpl(api, cache, movieDataMapper,detailedDataMapper)
+        return MoviesRepositoryImpl(api, cache, sharedPreferences, movieDataMapper, detailedDataMapper)
     }
 
     @Singleton
@@ -80,5 +78,19 @@ class DataModule {
     @Named(DI.cachedDataStore)
     fun provideCachedMoviesDataStore(moviesCache: MoviesCache): MoviesDataStore {
         return CachedMoviesDataStore(moviesCache)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(context: Context):
+            SharedPreferences {
+        return context.getSharedPreferences("storage", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCurrencyPreferences(sharedPreferences: SharedPreferences):
+            MovieSharedPreferences {
+        return MovieSharedPreferences(sharedPreferences)
     }
 }

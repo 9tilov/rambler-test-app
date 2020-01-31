@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -37,7 +38,7 @@ class NetworkModule(private val baseUrl: String, private val apiKey: String) {
         val httpLoggingInterceptor =
             HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
                 override fun log(message: String) {
-                    Log.d("moggot", message)
+                    Timber.tag("HTTPS REQUEST: $message")
                 }
             })
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
