@@ -82,4 +82,9 @@ class MovieDetailsFragment : BaseFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_movie_details, container, false)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity?.application as App).releaseDetailsComponent()
+    }
 }

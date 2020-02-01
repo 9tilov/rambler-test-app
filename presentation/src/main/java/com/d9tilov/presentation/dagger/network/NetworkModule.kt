@@ -1,6 +1,5 @@
 package com.d9tilov.presentation.dagger.network
 
-import android.util.Log
 import com.d9tilov.data.api.Api
 import dagger.Module
 import dagger.Provides

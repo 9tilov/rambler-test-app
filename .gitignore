@@ -11,6 +11,6 @@
 # Keystore files
 keystore.properties
 
-app/release
-app/*.jks
-app/*.pepk
+presentation/release
+MovieStorageKey
+presentation/*.pepk

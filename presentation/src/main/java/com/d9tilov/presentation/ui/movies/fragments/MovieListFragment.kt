@@ -24,7 +24,7 @@ class MovieListFragment : BaseFragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var moviesAdapter: moviesAdapter
+    private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,7 @@ class MovieListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = popular_movies_progress
-        moviesAdapter = moviesAdapter { movie, view ->
+        moviesAdapter = MoviesAdapter { movie, view ->
             navigateToMovieDetailsScreen(movie)
         }
         recyclerView = popular_movies_recyclerview

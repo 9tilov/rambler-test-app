@@ -13,9 +13,9 @@ class MovieDetailsViewModel(
     private val mapper: Mapper<MovieEntity, Movie>,
     private val movieId: Long
 ) : BaseViewModel() {
-    lateinit var movieEntity: MovieEntity
+    private lateinit var movieEntity: MovieEntity
     var viewState: MutableLiveData<MovieDetailsViewState> = MutableLiveData()
-    var favoriteState: MutableLiveData<Boolean> = MutableLiveData()
+    private var favoriteState: MutableLiveData<Boolean> = MutableLiveData()
     var errorState: SingleLiveEvent<Throwable> = SingleLiveEvent()
 
     init {

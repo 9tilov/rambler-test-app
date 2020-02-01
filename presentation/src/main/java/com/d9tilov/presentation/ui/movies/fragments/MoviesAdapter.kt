@@ -9,10 +9,10 @@ import com.d9tilov.presentation.R
 import com.d9tilov.presentation.entities.Movie
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class moviesAdapter constructor(
+class MoviesAdapter constructor(
     private val onMovieSelected:
         (Movie, View) -> Unit
-) : RecyclerView.Adapter<moviesAdapter.MovieCellViewHolder>() {
+) : RecyclerView.Adapter<MoviesAdapter.MovieCellViewHolder>() {
 
     private val movies: MutableList<Movie> = mutableListOf()
 

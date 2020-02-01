@@ -17,14 +17,14 @@ import timber.log.Timber
 
 class App : Application() {
 
-    lateinit var mainComponent: MainComponent
+    private lateinit var mainComponent: MainComponent
     private var moviesComponent: MovieSubComponent? = null
     private var movieDetailsComponent: MovieDetailsSubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
         initDependencies()
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
