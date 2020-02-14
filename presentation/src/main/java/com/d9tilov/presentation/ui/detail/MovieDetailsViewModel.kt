@@ -14,9 +14,9 @@ class MovieDetailsViewModel(
     private val movieId: Long
 ) : BaseViewModel() {
     private lateinit var movieEntity: MovieEntity
-    var viewState: MutableLiveData<MovieDetailsViewState> = MutableLiveData()
-    private var favoriteState: MutableLiveData<Boolean> = MutableLiveData()
-    var errorState: SingleLiveEvent<Throwable> = SingleLiveEvent()
+    var viewState = MutableLiveData<MovieDetailsViewState>()
+    private var favoriteState = MutableLiveData<Boolean>()
+    var errorState = SingleLiveEvent<Throwable>()
 
     init {
         viewState.value = MovieDetailsViewState(isLoading = true)

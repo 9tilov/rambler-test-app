@@ -1,29 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 apply from: '../utils.gradle'
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties["keyAlias"]
-            keyPassword keystoreProperties["keyPassword"]
-            storeFile file(keystoreProperties["storeFile"])
-            storePassword keystoreProperties["storePassword"]
-        }
-    }
 
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
     defaultConfig {
         applicationId "com.d9tilov.movieviewer"
-        minSdkVersion 15
-        targetSdkVersion 29
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -34,7 +22,6 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             multiDexEnabled false
-            signingConfig signingConfigs.release
         }
         debug {
             versionNameSuffix "-debug"
@@ -55,41 +42,45 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
+    def presentationDependencies = rootProject.ext.presentationDependencies
+
     implementation project(":domain")
     implementation project(":data")
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation presentationDependencies.kotlinLib
+    implementation presentationDependencies.kotlinCore
 
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.11'
+    implementation presentationDependencies.appCompat
+    implementation presentationDependencies.constraintlayout
+    implementation presentationDependencies.recyclerView
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    kapt 'com.google.dagger:dagger-compiler:2.17'
-    implementation 'com.google.dagger:dagger-android:2.16'
-    implementation 'com.google.dagger:dagger-android-support:2.16'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'
-    implementation("io.coil-kt:coil:0.6.1")
+    implementation presentationDependencies.rxAndroid
 
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    implementation presentationDependencies.lifeCycleExtensions
+    implementation presentationDependencies.lifeCycleViewModel
 
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    kapt 'android.arch.persistence.room:compiler:1.1.1'
+    kapt presentationDependencies.daggerCompiler
+    implementation presentationDependencies.daggerAndroid
+    implementation presentationDependencies.daggerAndroidSupport
 
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation presentationDependencies.coilVersion
 
-    implementation 'com.facebook.stetho:stetho:1.5.1'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation presentationDependencies.retrofit
+    implementation presentationDependencies.retrofitAdapter
+    implementation presentationDependencies.retrofitConverter
+    implementation presentationDependencies.retrofitLogging
+
+    implementation presentationDependencies.room
+    kapt presentationDependencies.roomCompiler
+
+    implementation presentationDependencies.stetho
+
+    implementation presentationDependencies.timber
 }

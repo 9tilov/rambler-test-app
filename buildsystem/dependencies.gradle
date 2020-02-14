@@ -1,0 +1,88 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "29.0.3"
+    androidMinSdkVersion = 15
+    androidTargetSdkVersion = 29
+    androidCompileSdkVersion = 29
+
+    kotlinVersion = '1.3.70'
+    kotlinCoreVersion = '1.2.0'
+
+    //Libraries
+    appCompatVersion = '1.1.0'
+    constraintlayoutVersion = '1.1.3'
+    recyclerViewVersion = '1.1.0'
+
+    rxAndroidVersion = '2.1.1'
+    rxJavaVersion = '2.2.11'
+
+    lifeCycleExtensionsVersion = '2.2.0'
+
+    daggerVersion = '2.17'
+    coilVersion = '0.6.1'
+
+    retrofitVersion = '2.6.4'
+    retrofitConverterVersion = '2.5.0'
+    retrofitLoggingVersion = '4.2.2'
+
+    roomVersion = '1.1.1'
+
+    stethoVersion = '1.5.1'
+    timberVersion = '4.7.1'
+
+    presentationDependencies = [
+            kotlinLib           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
+            kotlinCore          : "androidx.core:core-ktx:${kotlinCoreVersion}",
+
+            appCompat           : "androidx.appcompat:appcompat:${appCompatVersion}",
+            constraintlayout    : "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}",
+            recyclerView        : "androidx.recyclerview:recyclerview:${recyclerViewVersion}",
+
+            daggerCompiler      : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroid       : "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerAndroidSupport: "com.google.dagger:dagger-android-support:${daggerVersion}",
+
+            retrofit            : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitAdapter     : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitConverter   : "com.squareup.retrofit2:converter-gson:${retrofitConverterVersion}",
+            retrofitLogging     : "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingVersion}",
+
+            rxAndroid           : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            lifeCycleExtensions : "androidx.lifecycle:lifecycle-extensions:${lifeCycleExtensionsVersion}",
+            lifeCycleViewModel  : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifeCycleExtensionsVersion}",
+            coilVersion         : "io.coil-kt:coil:${coilVersion}",
+
+            room                : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomCompiler        : "android.arch.persistence.room:compiler:${roomVersion}",
+
+            stetho              : "com.facebook.stetho:stetho:${stethoVersion}",
+
+            timber: "com.jakewharton.timber:timber:${timberVersion}"
+
+    ]
+
+    domainDependencies = [
+            rxJava: "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+    ]
+
+    dataDependencies = [
+            rxAndroid        : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+
+            room             : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomCompiler     : "android.arch.persistence.room:compiler:${roomVersion}",
+
+            daggerCompiler   : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroid    : "com.google.dagger:dagger-android:${daggerVersion}",
+
+            retrofit         : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitAdapter  : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitConverter: "com.squareup.retrofit2:converter-gson:${retrofitConverterVersion}",
+            retrofitLogging  : "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingVersion}",
+    ]
+}

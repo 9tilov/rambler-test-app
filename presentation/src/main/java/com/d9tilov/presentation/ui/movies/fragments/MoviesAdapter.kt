@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.d9tilov.presentation.R
 import com.d9tilov.presentation.entities.Movie
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class MoviesAdapter constructor(
@@ -39,7 +40,11 @@ class MoviesAdapter constructor(
         notifyDataSetChanged()
     }
 
-    class MovieCellViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieCellViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        LayoutContainer {
+        override val containerView: View?
+            get() = itemView
+
         fun bind(movie: Movie, listener: (Movie, View) -> Unit) = with(itemView) {
             title.text = movie.originalTitle
             movie.posterPath?.let {

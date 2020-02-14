@@ -1,9 +1,6 @@
 package com.d9tilov.presentation.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -52,6 +49,8 @@ class MovieDetailsFragment : BaseFragment() {
             ViewModelProviders.of(this, factory).get(MovieDetailsViewModel::class.java)
     }
 
+    override val layoutId = R.layout.fragment_movie_details
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         detailsViewModel.viewState.observe(this as LifecycleOwner, Observer { viewState ->
@@ -74,13 +73,6 @@ class MovieDetailsFragment : BaseFragment() {
         movie_title.text = state.title
         tagline.text = state.overview
         date_status.text = state.releaseDate
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
     }
 
     override fun onDestroy() {
